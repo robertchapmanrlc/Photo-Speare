@@ -1,11 +1,62 @@
 .mainContent {
   width: 100%;
+  display: grid;
+  margin: 0.5rem 0 0 0;
+  gap: 0.5rem;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 4rem) auto auto;
+  grid-auto-flow: row;
 }
 
 .title {
-  text-align: center;
+  font-size: 1.5rem;
+}
+.subTitle {
+  font-size: 0.75rem;
 }
 
+.poem {
+  grid-column: 2 / -2;
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1.75;
+}
+
+.title,
 .subTitle {
   text-align: center;
+  align-content: center;
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 500px) {
+  .mainContent {
+    display: grid;
+    margin: 1rem 0 0 0;
+    gap: 0.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 4rem) auto auto;
+    grid-auto-flow: row;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+  .subTitle {
+    font-size: 1rem;
+  }
+
+  .poem {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+}
+
+@media (min-width: 1000px) {
+  .title {
+    font-size: 3rem;
+  }
+  .subTitle {
+    font-size: 1.5rem;
+  }
 }
