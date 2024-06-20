@@ -3,6 +3,25 @@ html {
   box-sizing: border-box;
 }
 
+:root {
+  --clr-light: #F5FAFF;
+  --clr-dark: #010104;
+  --clr-text-light: #02021e;
+  --clr-text-dark: #e2e2fd;
+
+  --background: var(--clr-light);
+  --font-color: var(--clr-text-light);
+
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--clr-dark);
+    --font-color: var(--clr-text-dark);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -15,6 +34,7 @@ body {
   margin: 0;
 }
 
-:root {
-  box-sizing: border-box;
+body {
+  color: var(--font-color);
+  background-color: var(--background);
 }
