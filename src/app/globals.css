@@ -1,3 +1,4 @@
+
 html {
   box-sizing: border-box;
 }
@@ -8,10 +9,13 @@ html {
   box-sizing: inherit;
 }
 
+h1,
+h3,
 body {
   margin: 0;
 }
 
-:root {
-  box-sizing: border-box;
+body {
+  color: var(--clr-text);
+  background-color: var(--background);
 }
