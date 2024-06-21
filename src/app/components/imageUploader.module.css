@@ -1,29 +1,14 @@
 .dropzone {
-  --clr-primary-light: #90c7fa;
-  --clr-primary-dark: #053c70;
-  --clr-secondary-light: #c4e2fd;
-  --clr-secondary-dark: #02203b;
-
-  --dropzone-background: var(--clr-primary-light);
-  --dropzoen-border: var(--clr-secondary-light);
-
   min-height: 250px;
   height: 100%;
   padding: 0.5rem;
-  border: 2px solid var(--dropzone-border);
-  background-color: var(--dropzone-background);
+  border: 2px solid var(--clr-secondary);
+  background-color: var(--clr-primary);
   border-radius: 1rem;
   grid-column: 2 / -2;
   text-align: center;
   align-content: center;
   font-size: 0.75rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dropzone {
-    --dropzone-background: var(--clr-primary-dark);
-    --dropzoen-border: var(--clr-secondary-dark);
-  }
 }
 
 @media (min-width: 500px) {
@@ -40,5 +25,3 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-}

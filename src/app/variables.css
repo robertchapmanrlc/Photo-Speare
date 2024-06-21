@@ -1,0 +1,17 @@
+
+:root[data-theme="dark"] {
+  --background: #010104;
+  --clr-primary: #053c70;
+  --clr-secondary: #02203b;
+  --clr-text: #e2e2fd;
+  --toggle-background: #f5faff;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --background: #f5faff;
+  --clr-primary: #90c7fa;
+  --clr-secondary: #c4e2fd;
+  --toggle-background: #010104;
+  --clr-text: #02021e;
+}
