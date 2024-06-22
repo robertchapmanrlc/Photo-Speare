@@ -1,18 +1,47 @@
-'use client'
+"use client";
 
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import styles from './imageUploader.module.css';
+import { useCallback, useEffect, useState } from "react";
+import Dropzone from "react-dropzone";
+import styles from "./imageUploader.module.css";
 
 export default function ImageUploader() {
-  const onDrop = useCallback((acceptedFiles: unknown) => {
-    console.log(acceptedFiles);
+  const [file, setFile] = useState<(File & { preview: string }) | undefined>();
+
+  const onDropAccepted = useCallback((acceptedFiles: File[]) => {
+    setFile(
+      Object.assign(acceptedFiles[0], {
+        preview: URL.createObjectURL(acceptedFiles[0]),
+      })
+    );
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  useEffect(() => {
+    return () => {
+      if (file) URL.revokeObjectURL(file.preview);
+    };
+  }, [file]);
 
-  return <div {...getRootProps()} className={styles.dropzone}>
-    <input {...getInputProps()} />
-    {isDragActive ? <p>Drop the files here</p> : <p>Drag {'n'} drop files here, or click to select files</p>}
-  </div>;
+  return (
+    <Dropzone onDropAccepted={onDropAccepted}>
+      {({ getRootProps, getInputProps, isDragActive }) => (
+        <div {...getRootProps({ className: styles.dropzone })}>
+          <input {...getInputProps()} />
+          {!file &&
+            (isDragActive ? (
+              <p>Drop the files here</p>
+            ) : (
+              <p>Drag {"n"} drop files here, or click to select files</p>
+            ))}
+          {file && (
+            <img
+              src={file.preview}
+              alt="Uploaded image"
+              className={styles.uploadedImage}
+              onLoad={() => URL.revokeObjectURL(file.preview)}
+            />
+          )}
+        </div>
+      )}
+    </Dropzone>
+  );
 }
