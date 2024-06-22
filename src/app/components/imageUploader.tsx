@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 import styles from "./imageUploader.module.css";
+import Image from "next/image";
 
 export default function ImageUploader() {
   const [file, setFile] = useState<(File & { preview: string }) | undefined>();

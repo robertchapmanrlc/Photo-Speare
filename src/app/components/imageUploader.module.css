@@ -1,6 +1,6 @@
 .dropzone {
-  display: grid;
-  place-content: center;
+  display: flex;
+  position: relative;
   min-height: 250px;
   height: 100%;
   padding: 0.5rem;
@@ -11,14 +11,21 @@
   text-align: center;
   align-content: center;
   font-size: 0.75rem;
-  overflow: hidden;
+}
+
+.dropzone p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .uploadedImage {
-  display: block;
+  display: flex;
   width: 100%;
   height: auto;
   object-fit: contain;
+  border-radius: 0.75rem;
 }
 
 @media (min-width: 500px) {
