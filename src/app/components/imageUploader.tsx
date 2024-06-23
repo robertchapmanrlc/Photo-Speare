@@ -34,10 +34,11 @@ export default function ImageUploader() {
               <p>Drag {"n"} drop files here, or click to select files</p>
             ))}
           {file && (
-            <img
+            <Image
               src={file.preview}
-              alt="Uploaded image"
               className={styles.uploadedImage}
+              alt="Uploaded Image"
+              fill
               onLoad={() => URL.revokeObjectURL(file.preview)}
             />
           )}
