@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@huggingface/inference':
+        specifier: ^2.7.0
+        version: 2.7.0
       next:
         specifier: 14.2.4
         version: 14.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -63,6 +66,13 @@ packages:
   '@eslint/js@8.57.0':
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@huggingface/inference@2.7.0':
+    resolution: {integrity: sha512-u7Fn637Q3f7nUB1tajM4CgzhvoFQkOQr5W5Fm+2wT9ETgGoLBh25BLlYPTJRjAd2WY01s71v0lqAwNvHHCc3mg==}
+    engines: {node: '>=18'}
+
+  '@huggingface/tasks@0.10.18':
+    resolution: {integrity: sha512-3dAp03pZ3AONAEX0J6hr7G5i1F0xuvi7C8ki+8o9nmw8fksNfN0rNuqEBiE2xLP2CG9roOtAUlkq4gIrJBbKSA==}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -1358,6 +1368,12 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.0': {}
+
+  '@huggingface/inference@2.7.0':
+    dependencies:
+      '@huggingface/tasks': 0.10.18
+
+  '@huggingface/tasks@0.10.18': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
