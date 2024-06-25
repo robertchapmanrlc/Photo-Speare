@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
-import { summarize } from "@/actions/summary";
+import { getPoem } from "@/actions/summary";
 
 import styles from "./imageUploader.module.css";
 
@@ -37,7 +37,7 @@ export default function ImageUploader() {
   }, [file]);
 
   return (
-    <form action={summarize} className={styles.dropzoneForm} ref={formRef}>
+    <form action={getPoem} className={styles.dropzoneForm} ref={formRef}>
       <Dropzone onDropAccepted={onDropAccepted}>
         {({ getRootProps, getInputProps, isDragActive }) => (
           <div {...getRootProps({ className: styles.dropzone })}>
