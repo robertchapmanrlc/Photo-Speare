@@ -6,11 +6,10 @@ let hf: HfInference;
 
 export async function summarize(formData: FormData) {
 
-  const file = formData.get('image');
-  console.log(file);
-  // const inferenceResponse: ImageToTextOutput = await runHfInference(imgData);
-
-  // console.log(inferenceResponse.generated_text);
+  const file = formData.get('image') as Blob;
+  const inferenceResponse: ImageToTextOutput = await runHfInference(file);
+  console.log(inferenceResponse.generated_text);
+  
 }
 
 async function runHfInference(input: Blob) {
