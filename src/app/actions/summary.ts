@@ -1,25 +1,27 @@
 "use server";
 
-import { HfInference, ImageToTextOutput } from "@huggingface/inference";
+import { HfInference, TextGenerationOutput } from "@huggingface/inference";
 
 let hf: HfInference;
 
-export async function summarize(formData: FormData) {
-
-  const file = formData.get('image') as Blob;
-  const inferenceResponse: ImageToTextOutput = await runHfInference(file);
-  console.log(inferenceResponse.generated_text);
-  
-}
-
-async function runHfInference(input: Blob) {
+export async function getPoem(formData: FormData) {
   if (!hf) hf = new HfInference(process.env.HF_TOKEN);
 
-  const modelName = "Salesforce/blip-image-captioning-large";
-  const inferenceResult = await hf.imageToText({
-    model: modelName,
-    data: input
+  const file = formData.get("image") as Blob;
+
+  const imageDescription = await hf.imageToText({
+    model: "Salesforce/blip-image-captioning-large",
+    data: file,
   });
 
-  return inferenceResult;
+  const poem: TextGenerationOutput = await hf.textGeneration({
+    inputs: imageDescription.generated_text,
+    model: "striki-ai/william-shakespeare-poetry",
+    parameters: {
+      max_new_tokens: 60,
+      temperature: 1
+    },
+  });
+
+  console.log(poem.generated_text);
 }
