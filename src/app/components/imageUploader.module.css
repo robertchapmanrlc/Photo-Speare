@@ -1,9 +1,15 @@
 
-.dropzoneForm {
+.dropzoneContent {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   grid-column: 2 / -2;
+}
+
+.dropzoneForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   min-height: 250px;
   align-items: center;
   justify-content: center;
@@ -35,6 +41,12 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.poem {
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1.75;
 }
 
 .uploadedImage {

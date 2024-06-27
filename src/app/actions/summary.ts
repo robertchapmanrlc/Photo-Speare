@@ -18,10 +18,10 @@ export async function getPoem(formData: FormData) {
     inputs: imageDescription.generated_text,
     model: "striki-ai/william-shakespeare-poetry",
     parameters: {
-      max_new_tokens: 60,
+      max_new_tokens: 30,
       temperature: 1
     },
   });
 
-  console.log(poem.generated_text);
+  return poem.generated_text;
 }
