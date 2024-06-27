@@ -40,15 +40,11 @@ export default function ImageUploader() {
 
   return (
     <div className={styles.dropzoneContent}>
-      <form
-        action={async (formData: FormData) => {
-          const returnedPoem = await getPoem(formData);
+      <form action={async (formData: FormData) => {
+        const returnedPoem = await getPoem(formData);
 
-          setPoem(returnedPoem);
-        }}
-        className={styles.dropzoneForm}
-        ref={formRef}
-      >
+        setPoem(returnedPoem);
+      }} className={styles.dropzoneForm} ref={formRef}>
         <Dropzone onDropAccepted={onDropAccepted}>
           {({ getRootProps, getInputProps, isDragActive }) => (
             <div {...getRootProps({ className: styles.dropzone })}>

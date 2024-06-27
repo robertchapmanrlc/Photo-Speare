@@ -18,10 +18,28 @@ export async function getPoem(formData: FormData) {
     inputs: imageDescription.generated_text,
     model: "striki-ai/william-shakespeare-poetry",
     parameters: {
-      max_new_tokens: 30,
+      max_new_tokens: 50,
       temperature: 1
     },
   });
 
-  return poem.generated_text;
+  const new_poem_text = poem.generated_text.substring(imageDescription.generated_text.length).trim();
+  
+  let poem_parts = new_poem_text.trim().split(',');
+  poem_parts.forEach((str, i) => poem_parts[i] = str.replace('\n', ''));
+
+  const partsSet = new Set(poem_parts);
+
+  let final_poem_parts = [];
+  for (const item of partsSet.values()) {
+    final_poem_parts.push(item);
+  }
+
+  let final_poem = [imageDescription.generated_text];
+  for (let index = 0; index < final_poem_parts.length - 1; index++) {
+    const element = final_poem_parts[index].trim();
+    final_poem.push(element);
+  }
+
+  return final_poem.join(" ");
 }
