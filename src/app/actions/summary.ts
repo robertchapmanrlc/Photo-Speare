@@ -8,25 +8,37 @@ export async function getPoem(formData: FormData) {
   if (!hf) hf = new HfInference(process.env.HF_TOKEN);
 
   const file = formData.get("image") as Blob;
+  let imageDescription = "";
+  let poem_text = "";
 
-  const imageDescription = await hf.imageToText({
-    model: "Salesforce/blip-image-captioning-large",
-    data: file,
-  });
+  try {
+    const imgToTextRes = await hf.imageToText({
+      model: "Salesforce/blip-image-captioning-large",
+      data: file,
+    });
 
-  const poem: TextGenerationOutput = await hf.textGeneration({
-    inputs: imageDescription.generated_text,
-    model: "striki-ai/william-shakespeare-poetry",
-    parameters: {
-      max_new_tokens: 50,
-      temperature: 1
-    },
-  });
+    imageDescription = imgToTextRes.generated_text;
 
-  const new_poem_text = poem.generated_text.substring(imageDescription.generated_text.length).trim();
-  
-  let poem_parts = new_poem_text.trim().split(',');
-  poem_parts.forEach((str, i) => poem_parts[i] = str.replace('\n', ''));
+    const poem: TextGenerationOutput = await hf.textGeneration({
+      inputs: imageDescription,
+      model: "striki-ai/william-shakespeare-poetry",
+      parameters: {
+        max_new_tokens: 50,
+        temperature: 1,
+      },
+    });
+
+    poem_text = poem.generated_text;
+  } catch (error) {
+    return {
+      error: "An error has occurred",
+    };
+  }
+
+  const new_poem_text = poem_text.substring(imageDescription.length).trim();
+
+  let poem_parts = new_poem_text.trim().split(",");
+  poem_parts.forEach((str, i) => (poem_parts[i] = str.replace("\n", "")));
 
   const partsSet = new Set(poem_parts);
 
@@ -35,11 +47,11 @@ export async function getPoem(formData: FormData) {
     final_poem_parts.push(item);
   }
 
-  let final_poem = [imageDescription.generated_text];
+  let final_poem = [imageDescription];
   for (let index = 0; index < final_poem_parts.length - 1; index++) {
     const element = final_poem_parts[index].trim();
     final_poem.push(element);
   }
 
-  return final_poem.join(" ");
+  return { poem: final_poem.join(" ") };
 }
