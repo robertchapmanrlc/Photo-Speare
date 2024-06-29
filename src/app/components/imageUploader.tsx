@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
+import SubmitButton from "./submitButton";
 import { getPoem } from "@/actions/summary";
 
 import styles from "./imageUploader.module.css";
-import SubmitButton from "./submitButton";
+import toast from "react-hot-toast";
 
 export default function ImageUploader() {
   const [file, setFile] = useState<(File & { preview: string }) | undefined>();
@@ -43,8 +44,12 @@ export default function ImageUploader() {
     <div className={styles.dropzoneContent}>
       <form action={async (formData: FormData) => {
         const returnedPoem = await getPoem(formData);
-
-        setPoem(returnedPoem);
+        
+        if (returnedPoem.poem) {
+          setPoem(returnedPoem.poem);
+        } else if (returnedPoem.error) {
+          toast.error(returnedPoem.error);
+        }
       }} className={styles.dropzoneForm} ref={formRef}>
         <Dropzone onDropAccepted={onDropAccepted}>
           {({ getRootProps, getInputProps, isDragActive }) => (
