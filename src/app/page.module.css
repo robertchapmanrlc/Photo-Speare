@@ -4,7 +4,7 @@
   margin: 0.5rem 0 0 0;
   gap: 0.5rem;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 4rem) auto auto;
+  grid-template-rows: repeat(2, 4rem) auto;
   grid-auto-flow: row;
 }
 
@@ -13,13 +13,6 @@
 }
 .subTitle {
   font-size: 0.75rem;
-}
-
-.poem {
-  grid-column: 2 / -2;
-  text-align: left;
-  font-size: 0.75rem;
-  line-height: 1.75;
 }
 
 .title,
