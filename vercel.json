@@ -1,0 +1,9 @@
+{
+    "git": {
+        "deploymentEnabled": {
+            "ui-design": false,
+            "dropzone-feature": false,
+            "hf-integration": false 
+        }
+    }
+}

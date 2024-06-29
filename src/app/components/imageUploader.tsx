@@ -6,6 +6,7 @@ import Dropzone from "react-dropzone";
 import { getPoem } from "@/actions/summary";
 
 import styles from "./imageUploader.module.css";
+import SubmitButton from "./submitButton";
 
 export default function ImageUploader() {
   const [file, setFile] = useState<(File & { preview: string }) | undefined>();
@@ -67,7 +68,7 @@ export default function ImageUploader() {
             </div>
           )}
         </Dropzone>
-        <button type="submit">Upload</button>
+        <SubmitButton />
       </form>
       <p className={styles.poem}>{poem}</p>
     </div>

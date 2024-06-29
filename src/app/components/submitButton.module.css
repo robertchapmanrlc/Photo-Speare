@@ -1,0 +1,23 @@
+
+.spinner_bg {
+  fill: var(--clr-text);
+}
+
+.uploadButton {
+  min-width: 5rem;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.spinner_ajPY {
+  transform-origin: center;
+  animation: spinner_AtaB 0.75s infinite linear;
+  fill: var(--clr-text);
+}
+
+@keyframes spinner_AtaB {
+  100% {
+    transform: rotate(360deg);
+  }
+}
