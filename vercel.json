@@ -3,7 +3,8 @@
         "deploymentEnabled": {
             "ui-design": false,
             "dropzone-feature": false,
-            "hf-integration": false 
+            "hf-integration": false,
+            "form-handling": false
         }
     }
 }

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Dropzone from "react-dropzone";
+import Dropzone, { FileRejection } from "react-dropzone";
 import SubmitButton from "./submitButton";
 import { getPoem } from "@/actions/summary";
 
@@ -13,6 +13,20 @@ export default function ImageUploader() {
   const [file, setFile] = useState<(File & { preview: string }) | undefined>();
   const [poem, setPoem] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
+
+
+  const onDropRejected = useCallback(async (rejectedFiles: FileRejection[]) => {
+    if (rejectedFiles.length > 1) {
+      toast.error('Only one image allowed');
+      return;
+    }
+
+    const rejectedFile = rejectedFiles[0].file;
+    if (rejectedFile.size >= 5000000) {
+      toast.error('Image must be less than 5MB');
+      return;
+    }
+  }, []);
 
   const onDropAccepted = useCallback(async (acceptedFiles: File[]) => {
     const dataTransfer = new DataTransfer();
@@ -42,17 +56,27 @@ export default function ImageUploader() {
 
   return (
     <div className={styles.dropzoneContent}>
-      <form action={async (formData: FormData) => {
-        const returnedPoem = await getPoem(formData);
-        
-        if (returnedPoem.poem) {
-          setPoem(returnedPoem.poem);
-        } else if (returnedPoem.error) {
-          toast.error(returnedPoem.error);
-        }
-      }} className={styles.dropzoneForm} ref={formRef}>
-        <Dropzone onDropAccepted={onDropAccepted}>
-          {({ getRootProps, getInputProps, isDragActive }) => (
+      <form
+        action={async (formData: FormData) => {
+          const returnedPoem = await getPoem(formData);
+
+          if (returnedPoem.poem) {
+            setPoem(returnedPoem.poem);
+          } else if (returnedPoem.error) {
+            toast.error(returnedPoem.error);
+          }
+        }}
+        className={styles.dropzoneForm}
+        ref={formRef}
+      >
+        <Dropzone
+          onDropAccepted={onDropAccepted}
+          maxFiles={1}
+          onDropRejected={onDropRejected}
+          accept={{ "image/png": [".png"], "image/jpeg": [".jpg", ".jpeg"] }}
+          maxSize={5000000}
+        >
+          {({ getRootProps,getInputProps, isDragActive }) => (
             <div {...getRootProps({ className: styles.dropzone })}>
               <input {...getInputProps({ type: "file", name: "image" })} />
               {!file &&
